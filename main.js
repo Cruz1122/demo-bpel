@@ -781,123 +781,251 @@ const TEAM_ACTIVITIES = {
   1: {
     name: 'Fundamentos BPEL',
     wordsearch: {
-      words: ['BPEL', 'INVOKE', 'RECEIVE', 'REPLY', 'ASSIGN', 'SEQUENCE', 'WSDL', 'XML', 'VARIABLE', 'SOAP'],
-      size: 12
+      words: ['RECEIVE', 'INVOKE', 'REPLY', 'ASSIGN', 'VARIABLE', 'SEQUENCE', 'PAYMENTRESULT', 'ORDERRESPONSE'],
+      size: 24
     },
-    crossword: {
-      size: 8,
-      words: [
-        { word: 'BPEL', row: 0, col: 0, direction: 'across', clue: '1H. Lenguaje para la orquestación de procesos de negocio', number: 1 },
-        { word: 'INVOKE', row: 0, col: 0, direction: 'down', clue: '1V. Actividad que llama a un servicio web externo', number: 1 },
-        { word: 'RECEIVE', row: 2, col: 0, direction: 'across', clue: '2H. Actividad que recibe mensajes de entrada', number: 2 },
-        { word: 'REPLY', row: 0, col: 4, direction: 'down', clue: '3V. Actividad que envía respuestas al cliente', number: 3 },
-        { word: 'XML', row: 4, col: 1, direction: 'across', clue: '4H. Formato de datos base para BPEL', number: 4 },
-        { word: 'SOAP', row: 6, col: 0, direction: 'across', clue: '5H. Protocolo de mensajería usado con BPEL', number: 5 }
+    dragdrop: {
+      title: 'Completar Código de Proceso de Pedido',
+      code: `<____ name="ReceiveOrder"
+      partnerLink="client"
+      operation="processOrder"
+      variable="orderRequest" />
+
+<____ name="AuthorizePayment"
+        partnerLink="paymentService"
+        operation="authorize"
+        inputVariable="orderRequest"
+        outputVariable="____" />
+
+<____ name="UpdateInventory"
+        partnerLink="inventoryService"
+        operation="reserve"
+        inputVariable="orderRequest"
+        outputVariable="inventoryStatus" />
+
+<____ name="RespondToClient"
+      partnerLink="client"
+      operation="processOrder"
+      variable="____" />`,
+      blanks: [
+        { position: 0, correct: 'RECEIVE', hint: 'Actividad para recibir mensajes de entrada' },
+        { position: 1, correct: 'INVOKE', hint: 'Actividad para llamar servicios externos' },
+        { position: 2, correct: 'PAYMENTRESULT', hint: 'Variable que almacena el resultado del pago' },
+        { position: 3, correct: 'INVOKE', hint: 'Actividad para llamar servicios externos' },
+        { position: 4, correct: 'REPLY', hint: 'Actividad para enviar respuestas al cliente' },
+        { position: 5, correct: 'ORDERRESPONSE', hint: 'Variable con la respuesta final del pedido' }
       ]
     }
   },
   2: {
     name: 'Control de Flujo',
     wordsearch: {
-      words: ['IF', 'WHILE', 'PICK', 'FLOW', 'SCOPE', 'CONDITION', 'ELSE', 'SWITCH', 'SEQUENCE', 'PARALLEL'],
-      size: 12
+      words: ['IF', 'CONDITION', 'FLOW', 'WHILE', 'PICK', 'SCOPE', 'CREDITCHECK', 'APPROVED', 'PARALLEL'],
+      size: 24
     },
-    crossword: {
-      size: 8,
-      words: [
-        { word: 'IF', row: 0, col: 0, direction: 'across', clue: '1H. Estructura condicional básica en BPEL', number: 1 },
-        { word: 'FLOW', row: 0, col: 0, direction: 'down', clue: '1V. Actividad que permite ejecución paralela', number: 1 },
-        { word: 'WHILE', row: 2, col: 0, direction: 'across', clue: '2H. Bucle que se ejecuta mientras se cumple una condición', number: 2 },
-        { word: 'PICK', row: 4, col: 1, direction: 'across', clue: '3H. Actividad que espera por uno de varios eventos', number: 3 },
-        { word: 'SCOPE', row: 6, col: 0, direction: 'across', clue: '4H. Contenedor que agrupa actividades y maneja errores', number: 4 },
-        { word: 'ELSE', row: 1, col: 4, direction: 'down', clue: '5V. Rama alternativa en una estructura IF', number: 5 }
+    dragdrop: {
+      title: 'Completar Lógica de Control de Flujo',
+      code: `<____ name="CheckCredit">
+  <____ test="$orderAmount > 1000">
+    <____ name="CreditVerification"
+            partnerLink="creditService"
+            operation="verify"
+            inputVariable="____"
+            outputVariable="creditResult" />
+  </if>
+</if>
+
+<____ name="ParallelProcessing">
+  <____ name="ProcessPayment"
+          partnerLink="paymentService"
+          operation="process" />
+  
+  <sequence name="ProcessInventory">
+    <invoke name="ReserveItems" />
+  </sequence>
+</flow>`,
+      blanks: [
+        { position: 0, correct: 'IF', hint: 'Estructura condicional para tomar decisiones' },
+        { position: 1, correct: 'CONDITION', hint: 'Expresión que evalúa verdadero o falso' },
+        { position: 2, correct: 'INVOKE', hint: 'Actividad para llamar servicios externos' },
+        { position: 3, correct: 'CREDITCHECK', hint: 'Variable con datos para verificar crédito' },
+        { position: 4, correct: 'FLOW', hint: 'Actividad que permite ejecución paralela' },
+        { position: 5, correct: 'INVOKE', hint: 'Actividad que ejecuta una operación de servicio' }
       ]
     }
   },
   3: {
     name: 'Servicios y Datos',
     wordsearch: {
-      words: ['COPY', 'FROM', 'TO', 'MESSAGE', 'OPERATION', 'NAMESPACE', 'SCHEMA', 'PARTNER', 'PORT', 'BINDING'],
-      size: 12
+      words: ['ASSIGN', 'COPY', 'FROM', 'TO', 'VARIABLE', 'PARTNER', 'ORDERDATA', 'CUSTOMERINFO', 'TOTALAMOUNT'],
+      size: 24
     },
-    crossword: {
-      size: 8,
-      words: [
-        { word: 'COPY', row: 0, col: 0, direction: 'across', clue: '1H. Elemento usado para transferir datos entre variables', number: 1 },
-        { word: 'MESSAGE', row: 0, col: 0, direction: 'down', clue: '1V. Unidad de información intercambiada entre servicios', number: 1 },
-        { word: 'OPERATION', row: 2, col: 0, direction: 'across', clue: '2H. Función específica expuesta por un servicio web', number: 2 },
-        { word: 'PARTNER', row: 4, col: 0, direction: 'across', clue: '3H. Entidad externa que participa en el proceso', number: 3 },
-        { word: 'PORT', row: 6, col: 1, direction: 'across', clue: '4H. Punto de acceso a un servicio web', number: 4 },
-        { word: 'SCHEMA', row: 1, col: 5, direction: 'down', clue: '5V. Define la estructura y tipos de datos en XML', number: 5 }
+    dragdrop: {
+      title: 'Completar Asignación de Datos',
+      code: `<____ name="PrepareOrderData">
+  <____ name="ExtractCustomerInfo">
+    <____ ____="$customerInfo.name" to="$order.customerName" />
+    <copy from="$customerInfo.address" ____="$order.deliveryAddress" />
+  </copy>
+  
+  <copy name="CalculateTotal">
+    <from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+      $orderItems.quantity * $orderItems.price
+    </from>
+    <to ____="$____" />
+  </copy>
+</assign>`,
+      blanks: [
+        { position: 0, correct: 'ASSIGN', hint: 'Actividad para manipular y copiar datos' },
+        { position: 1, correct: 'COPY', hint: 'Elemento que transfiere datos entre variables' },
+        { position: 2, correct: 'FROM', hint: 'Especifica el origen de los datos' },
+        { position: 3, correct: 'TO', hint: 'Especifica el destino de los datos' },
+        { position: 4, correct: 'VARIABLE', hint: 'Atributo que identifica una variable' },
+        { position: 5, correct: 'TOTALAMOUNT', hint: 'Variable que almacena el monto total calculado' }
       ]
     }
   },
   4: {
     name: 'Manejo de Excepciones',
     wordsearch: {
-      words: ['FAULT', 'EXCEPTION', 'CATCH', 'THROW', 'COMPENSATION', 'HANDLER', 'TRY', 'FINALLY', 'ERROR', 'ROLLBACK'],
-      size: 12
+      words: ['SCOPE', 'CATCH', 'FAULT', 'THROW', 'HANDLER', 'COMPENSATE', 'PAYMENTFAULT', 'TIMEOUT', 'ROLLBACK'],
+      size: 24
     },
-    crossword: {
-      size: 8,
-      words: [
-        { word: 'FAULT', row: 0, col: 0, direction: 'across', clue: '1H. Error o excepción en un proceso BPEL', number: 1 },
-        { word: 'CATCH', row: 0, col: 0, direction: 'down', clue: '1V. Captura y maneja excepciones específicas', number: 1 },
-        { word: 'HANDLER', row: 2, col: 0, direction: 'across', clue: '2H. Mecanismo que maneja eventos o errores', number: 2 },
-        { word: 'THROW', row: 0, col: 4, direction: 'down', clue: '3V. Lanza una excepción explícitamente', number: 3 },
-        { word: 'TRY', row: 4, col: 1, direction: 'across', clue: '4H. Bloque que puede generar excepciones', number: 4 },
-        { word: 'ERROR', row: 6, col: 0, direction: 'across', clue: '5H. Condición anómala en el proceso', number: 5 }
+    dragdrop: {
+      title: 'Completar Manejo de Errores',
+      code: `<____ name="PaymentProcessing">
+  <invoke name="ProcessPayment"
+          partnerLink="paymentService"
+          operation="charge" />
+          
+  <faultHandlers>
+    <____ faultName="____">
+      <____ faultName="ProcessingError"
+              faultVariable="errorData" />
+      <____ name="RefundPayment"
+              for="ProcessPayment" />
+    </catch>
+  </faultHandlers>
+  
+  <compensationHandler>
+    <____ target="ProcessPayment" />
+  </compensationHandler>
+</scope>`,
+      blanks: [
+        { position: 0, correct: 'SCOPE', hint: 'Contenedor que agrupa actividades y maneja errores' },
+        { position: 1, correct: 'CATCH', hint: 'Captura y maneja excepciones específicas' },
+        { position: 2, correct: 'PAYMENTFAULT', hint: 'Tipo de falla relacionada con pagos' },
+        { position: 3, correct: 'THROW', hint: 'Lanza una excepción explícitamente' },
+        { position: 4, correct: 'COMPENSATE', hint: 'Actividad de compensación para deshacer cambios' },
+        { position: 5, correct: 'COMPENSATE', hint: 'Deshace los efectos de una actividad previa' }
       ]
     }
   },
   5: {
     name: 'Historia y Estándares',
     wordsearch: {
-      words: ['XLANG', 'WSFL', 'OASIS', 'IBM', 'MICROSOFT', 'SOA', 'WSBPEL', 'STANDARD', 'SPEC', 'CONSORTIUM'],
-      size: 12
+      words: ['PROCESS', 'XMLNS', 'TARGETNAMESPACE', 'IMPORT', 'WSDL', 'SCHEMA', 'NAMESPACE', 'VERSION'],
+      size: 24
     },
-    crossword: {
-      size: 8,
-      words: [
-        { word: 'OASIS', row: 0, col: 0, direction: 'across', clue: '1H. Organización que estandarizó BPEL', number: 1 },
-        { word: 'XLANG', row: 0, col: 1, direction: 'down', clue: '2V. Predecesor de BPEL desarrollado por Microsoft', number: 2 },
-        { word: 'IBM', row: 2, col: 0, direction: 'across', clue: '3H. Empresa que desarrolló WSFL', number: 3 },
-        { word: 'SOA', row: 4, col: 0, direction: 'across', clue: '4H. Arquitectura orientada a servicios', number: 4 },
-        { word: 'SPEC', row: 6, col: 0, direction: 'across', clue: '5H. Documento de especificación técnica', number: 5 }
+    dragdrop: {
+      title: 'Completar Definición de Proceso',
+      code: `<____ name="OrderProcess"
+       ____="http://example.com/orderprocess"
+       xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+       ____:tns="http://example.com/orderprocess"
+       xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+  <____ location="OrderService.____"
+          ____="http://example.com/orderservice"
+          importType="http://schemas.xmlsoap.org/wsdl/" />
+
+  <partnerLinks>
+    <partnerLink name="client"
+                 partnerLinkType="tns:OrderServiceLT" />
+  </partnerLinks>
+</process>`,
+      blanks: [
+        { position: 0, correct: 'PROCESS', hint: 'Elemento raíz que define un proceso BPEL' },
+        { position: 1, correct: 'TARGETNAMESPACE', hint: 'Espacio de nombres objetivo del proceso' },
+        { position: 2, correct: 'XMLNS', hint: 'Declaración de espacio de nombres XML' },
+        { position: 3, correct: 'IMPORT', hint: 'Elemento para importar recursos externos' },
+        { position: 4, correct: 'WSDL', hint: 'Extensión de archivo para servicios web' },
+        { position: 5, correct: 'NAMESPACE', hint: 'Espacio de nombres del recurso importado' }
       ]
     }
   },
   6: {
     name: 'Ejecución y Motor',
     wordsearch: {
-      words: ['ENGINE', 'RUNTIME', 'PROCESS', 'EXECUTION', 'DEPLOY', 'INSTANCE', 'LIFECYCLE', 'STATE', 'THREAD', 'QUEUE'],
-      size: 12
+      words: ['VARIABLES', 'VARIABLE', 'MESSAGETYPE', 'ELEMENT', 'TYPE', 'CORRELATIONSET', 'PROPERTY', 'ALIAS'],
+      size: 24
     },
-    crossword: {
-      size: 8,
-      words: [
-        { word: 'ENGINE', row: 0, col: 0, direction: 'across', clue: '1H. Motor que ejecuta procesos BPEL', number: 1 },
-        { word: 'PROCESS', row: 0, col: 0, direction: 'down', clue: '1V. Flujo de trabajo definido en BPEL', number: 1 },
-        { word: 'RUNTIME', row: 2, col: 0, direction: 'across', clue: '2H. Tiempo de ejecución del proceso', number: 2 },
-        { word: 'DEPLOY', row: 0, col: 5, direction: 'down', clue: '3V. Instalar proceso en el motor', number: 3 },
-        { word: 'STATE', row: 4, col: 1, direction: 'across', clue: '4H. Condición actual del proceso', number: 4 }
+    dragdrop: {
+      title: 'Completar Definición de Variables',
+      code: `<____>
+  <____ name="orderRequest"
+          ____="tns:OrderMessage" />
+  
+  <variable name="paymentResult"
+            ____="xsd:string" />
+            
+  <____ name="customerData"
+          ____="tns:CustomerInfo" />
+          
+  <variable name="orderStatus"
+            type="____:boolean" />
+</variables>
+
+<correlationSets>
+  <correlationSet name="orderCorrelation"
+                  properties="tns:orderID" />
+</correlationSets>`,
+      blanks: [
+        { position: 0, correct: 'VARIABLES', hint: 'Contenedor para todas las variables del proceso' },
+        { position: 1, correct: 'VARIABLE', hint: 'Elemento que define una variable individual' },
+        { position: 2, correct: 'MESSAGETYPE', hint: 'Tipo basado en un mensaje WSDL' },
+        { position: 3, correct: 'TYPE', hint: 'Atributo que especifica el tipo de datos' },
+        { position: 4, correct: 'VARIABLE', hint: 'Definición de variable para datos del cliente' },
+        { position: 5, correct: 'ELEMENT', hint: 'Tipo basado en un elemento de esquema XML' },
+        { position: 6, correct: 'TYPE', hint: 'Prefijo del espacio de nombres para tipos XSD' }
       ]
     }
   },
   7: {
     name: 'Arquitectura SOA',
     wordsearch: {
-      words: ['SOA', 'SERVICE', 'ORCHESTRATION', 'CHOREOGRAPHY', 'BPMN', 'WORKFLOW', 'INTEGRATION', 'ESB', 'ENDPOINT', 'CONTRACT'],
-      size: 12
+      words: ['PARTNERLINKS', 'PARTNERLINK', 'PORTTYPE', 'ROLE', 'SERVICE', 'ENDPOINT', 'BINDING', 'OPERATION'],
+      size: 24
     },
-    crossword: {
-      size: 8,
-      words: [
-        { word: 'SOA', row: 0, col: 0, direction: 'across', clue: '1H. Arquitectura orientada a servicios', number: 1 },
-        { word: 'SERVICE', row: 0, col: 0, direction: 'down', clue: '1V. Componente funcional reutilizable', number: 1 },
-        { word: 'BPMN', row: 2, col: 0, direction: 'across', clue: '2H. Notación para modelado de procesos', number: 2 },
-        { word: 'ESB', row: 0, col: 4, direction: 'down', clue: '3V. Bus de servicios empresariales', number: 3 },
-        { word: 'WORKFLOW', row: 4, col: 0, direction: 'across', clue: '4H. Flujo de trabajo automatizado', number: 4 }
+    dragdrop: {
+      title: 'Completar Partner Links',
+      code: `<____>
+  <____ name="clientService"
+              partnerLinkType="tns:ClientServiceLT"
+              myRole="orderProcessor"
+              ____="orderService" />
+              
+  <partnerLink name="paymentService"
+               partnerLinkType="tns:PaymentServiceLT"
+               ____="paymentProvider" />
+               
+  <____ name="inventoryService"
+              partnerLinkType="tns:InventoryServiceLT"
+              partnerRole="inventoryManager" />
+</partnerLinks>
+
+<sequence>
+  <receive partnerLink="clientService"
+           ____="processOrder"
+           variable="orderRequest" />
+</sequence>`,
+      blanks: [
+        { position: 0, correct: 'PARTNERLINKS', hint: 'Contenedor para todas las conexiones de servicios' },
+        { position: 1, correct: 'PARTNERLINK', hint: 'Define una conexión con un servicio externo' },
+        { position: 2, correct: 'PARTNERROLLE', hint: 'Rol que desempeña el servicio asociado' },
+        { position: 3, correct: 'PARTNERROLLE', hint: 'Rol del servicio de pago en la interacción' },
+        { position: 4, correct: 'PARTNERLINK', hint: 'Conexión con el servicio de inventario' },
+        { position: 5, correct: 'OPERATION', hint: 'Operación específica a ejecutar en el servicio' }
       ]
     }
   }
@@ -906,13 +1034,13 @@ const TEAM_ACTIVITIES = {
 // Estado de las actividades
 let currentTeam = 1;
 let gameStates = {
-  1: { wordsearchFound: new Set(), crosswordCorrect: new Set(), wordsearchSelection: [] },
-  2: { wordsearchFound: new Set(), crosswordCorrect: new Set(), wordsearchSelection: [] },
-  3: { wordsearchFound: new Set(), crosswordCorrect: new Set(), wordsearchSelection: [] },
-  4: { wordsearchFound: new Set(), crosswordCorrect: new Set(), wordsearchSelection: [] },
-  5: { wordsearchFound: new Set(), crosswordCorrect: new Set(), wordsearchSelection: [] },
-  6: { wordsearchFound: new Set(), crosswordCorrect: new Set(), wordsearchSelection: [] },
-  7: { wordsearchFound: new Set(), crosswordCorrect: new Set(), wordsearchSelection: [] }
+  1: { wordsearchFound: new Set(), dragdropCorrect: new Set(), wordsearchSelection: [] },
+  2: { wordsearchFound: new Set(), dragdropCorrect: new Set(), wordsearchSelection: [] },
+  3: { wordsearchFound: new Set(), dragdropCorrect: new Set(), wordsearchSelection: [] },
+  4: { wordsearchFound: new Set(), dragdropCorrect: new Set(), wordsearchSelection: [] },
+  5: { wordsearchFound: new Set(), dragdropCorrect: new Set(), wordsearchSelection: [] },
+  6: { wordsearchFound: new Set(), dragdropCorrect: new Set(), wordsearchSelection: [] },
+  7: { wordsearchFound: new Set(), dragdropCorrect: new Set(), wordsearchSelection: [] }
 };
 
 // Inicializar actividades interactivas
@@ -940,9 +1068,13 @@ function initInteractiveActivities() {
 
   // Generar actividades para todos los equipos
   for (let team = 1; team <= 7; team++) {
+    initGameState(team);
     generateWordsearch(team);
-    generateCrossword(team);
+    generateDragDrop(team);
   }
+  
+  // Inicializar la calificación para el equipo activo
+  updateCurrentGrade(currentTeam);
 }
 
 // Cambiar de equipo
@@ -964,6 +1096,9 @@ function switchTeam(teamNum) {
     content.classList.add('hidden');
   });
   document.getElementById(`team-${teamNum}-content`).classList.remove('hidden');
+  
+  // Actualizar calificación para el equipo seleccionado
+  updateCurrentGrade(teamNum);
 }
 
 // Generar sopa de letras
@@ -1219,6 +1354,8 @@ function checkWordsearchCompletion(teamNum) {
           markWordAsFound(teamNum, word, selectionCoords);
           state.wordsearchSelection = [];
           updateWordsearchSelection(teamNum);
+          updateWordBank(teamNum); // Actualizar banco de palabras
+          updateCurrentGrade(teamNum); // Actualizar calificación
           checkActivityCompletion(teamNum);
         }
       });
@@ -1284,124 +1421,397 @@ function isWordWithinBounds(word, row, col, direction, size) {
   }
 }
 
-// Generar crucigrama
-function generateCrossword(teamNum) {
+// Generar drag-and-drop para completar código BPEL (versión moderna)
+function generateDragDrop(teamNum) {
   try {
     const activity = TEAM_ACTIVITIES[teamNum];
-    if (!activity || !activity.crossword) {
-      console.error(`No crossword data for team ${teamNum}`);
+    if (!activity || !activity.dragdrop) {
+      console.error(`No dragdrop data for team ${teamNum}`);
       return;
     }
     
-    const { size, words } = activity.crossword;
-    
-    // Crear grid
     const gridElement = document.getElementById(`team-${teamNum}-crossword`);
     if (!gridElement) {
       console.error(`Grid element not found for team ${teamNum}`);
       return;
     }
     
-    gridElement.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    // Limpiar y configurar el contenedor
     gridElement.innerHTML = '';
+    gridElement.className = 'w-full';
     
-    // Crear grid de celdas
-    const grid = Array(size).fill().map(() => Array(size).fill(null));
+    const { title, code, blanks } = activity.dragdrop;
     
-    // Colocar palabras
-    words.forEach(wordData => {
-      const { word, row, col, direction, number } = wordData;
+    // Crear contenedor principal
+    const mainContainer = document.createElement('div');
+    mainContainer.className = 'space-y-6';
+    
+    // Título del ejercicio
+    const titleElement = document.createElement('h4');
+    titleElement.className = 'text-xl font-bold text-gray-800 dark:text-gray-200 mb-4';
+    titleElement.textContent = title;
+    mainContainer.appendChild(titleElement);
+    
+    // Layout principal: código y banco de palabras
+    const layoutContainer = document.createElement('div');
+    layoutContainer.className = 'grid lg:grid-cols-3 gap-6';
+    
+    // Panel izquierdo: Código BPEL (2/3 del ancho)
+    const codeSection = document.createElement('div');
+    codeSection.className = 'lg:col-span-2';
+    
+    const codePanel = document.createElement('div');
+    codePanel.className = 'bg-gray-900 rounded-lg p-6 overflow-x-auto';
+    
+    const codeContainer = document.createElement('div');
+    codeContainer.className = 'font-mono text-sm leading-relaxed';
+    codeContainer.id = `code-container-${teamNum}`;
+    
+    // Procesar código línea por línea para mejor formato
+    const codeLines = code.split('\n');
+    let blankIndex = 0;
+    
+    codeLines.forEach((line, lineIndex) => {
+      const lineDiv = document.createElement('div');
+      lineDiv.className = 'flex items-center space-x-2 py-1';
       
-      // Verificar límites usando la nueva función
-      if (!isWordWithinBounds(word, row, col, direction, size)) {
-        console.warn(`Word ${word} exceeds grid bounds for team ${teamNum} at (${row},${col}) ${direction}`);
-        return;
-      }
+      // Número de línea
+      const lineNumber = document.createElement('span');
+      lineNumber.className = 'text-gray-500 text-xs w-8 flex-shrink-0 text-right select-none';
+      lineNumber.textContent = (lineIndex + 1).toString().padStart(2, ' ');
+      lineDiv.appendChild(lineNumber);
       
-      for (let i = 0; i < word.length; i++) {
-        const currentRow = direction === 'across' ? row : row + i;
-        const currentCol = direction === 'across' ? col + i : col;
-        
-        if (currentRow >= 0 && currentRow < size && currentCol >= 0 && currentCol < size) {
-          if (!grid[currentRow][currentCol]) {
-            grid[currentRow][currentCol] = {
-              letter: word[i],
-              number: i === 0 ? number : null,
-              wordId: `${teamNum}-${number}-${direction}`
-            };
-          } else {
-            // Si hay conflicto, usar la letra existente pero mantener el número si es necesario
-            if (grid[currentRow][currentCol].letter !== word[i]) {
-              console.warn(`Letter conflict at (${currentRow},${currentCol}) for word ${word} in team ${teamNum}`);
-            }
-            if (i === 0 && number) {
-              grid[currentRow][currentCol].number = number;
-            }
-          }
-        }
-      }
-    });
-    
-    // Renderizar grid
-    for (let i = 0; i < size; i++) {
-      for (let j = 0; j < size; j++) {
-        const cell = document.createElement('div');
-        const cellData = grid[i][j];
-        
-        if (cellData) {
-          cell.className = 'crossword-cell white';
-          if (cellData.number) {
-            const numberSpan = document.createElement('span');
-            numberSpan.className = 'number';
-            numberSpan.textContent = cellData.number;
-            cell.appendChild(numberSpan);
+      // Contenido de la línea
+      const lineContent = document.createElement('div');
+      lineContent.className = 'flex-1 text-green-400';
+      
+      if (line.includes('____')) {
+        // Línea con blank - procesarla especialmente
+        const parts = line.split('____');
+        parts.forEach((part, partIndex) => {
+          if (part) {
+            const textSpan = document.createElement('span');
+            textSpan.textContent = part;
+            lineContent.appendChild(textSpan);
           }
           
-          const input = document.createElement('input');
-          input.type = 'text';
-          input.maxLength = 1;
-          input.dataset.correct = cellData.letter.toUpperCase();
-          input.dataset.row = i;
-          input.dataset.col = j;
-          input.addEventListener('input', (e) => handleCrosswordInput(teamNum, e));
-          cell.appendChild(input);
-        } else {
-          cell.className = 'crossword-cell black';
-        }
-        
-        gridElement.appendChild(cell);
+          if (partIndex < parts.length - 1 && blankIndex < blanks.length) {
+            // Crear drop zone moderno
+            const dropZone = document.createElement('div');
+            dropZone.className = 'inline-flex items-center justify-center min-w-32 h-8 mx-1 px-3 bg-blue-600 hover:bg-blue-700 border-2 border-dashed border-blue-400 rounded-lg cursor-pointer transition-all duration-200 text-white font-semibold text-xs';
+            dropZone.dataset.blankId = blankIndex;
+            dropZone.dataset.correct = blanks[blankIndex].correct.toLowerCase();
+            dropZone.dataset.team = teamNum;
+            dropZone.title = blanks[blankIndex].hint;
+            dropZone.textContent = `[${blankIndex + 1}]`;
+            
+            // Agregar efectos hover y estados
+            dropZone.addEventListener('dragover', handleDragOver);
+            dropZone.addEventListener('dragleave', handleDragLeave);
+            dropZone.addEventListener('drop', (e) => handleDrop(e, teamNum));
+            dropZone.addEventListener('click', (e) => handleDropZoneClick(e, teamNum));
+            
+            lineContent.appendChild(dropZone);
+            blankIndex++;
+          }
+        });
+      } else {
+        lineContent.textContent = line;
       }
-    }
+      
+      lineDiv.appendChild(lineContent);
+      codeContainer.appendChild(lineDiv);
+    });
     
-    // Renderizar pistas
-    const cluesElement = document.getElementById(`team-${teamNum}-clues`);
-    if (cluesElement) {
-      cluesElement.innerHTML = words.map(wordData => 
-        `<div class="text-gray-700 dark:text-gray-300">${wordData.clue}</div>`
-      ).join('');
-    }
+    codePanel.appendChild(codeContainer);
+    codeSection.appendChild(codePanel);
+    layoutContainer.appendChild(codeSection);
     
-    console.log(`Crossword generated successfully for team ${teamNum}`);
+    // Panel derecho: Banco de palabras y controles (1/3 del ancho)
+    const rightPanel = document.createElement('div');
+    rightPanel.className = 'space-y-4';
+    
+    // Banco de palabras
+    const wordBankSection = document.createElement('div');
+    wordBankSection.innerHTML = `
+      <h5 class="font-bold text-lg mb-3 text-gray-800 dark:text-gray-200">Banco de Palabras</h5>
+      <div id="word-bank-${teamNum}" class="space-y-2 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 min-h-40">
+        <div class="text-center text-gray-500 dark:text-gray-400 text-sm py-8">
+          <div class="mb-2">📝</div>
+          <p>Completa la búsqueda de palabras para activar el banco</p>
+        </div>
+      </div>
+    `;
+    rightPanel.appendChild(wordBankSection);
+    
+    // Panel de progreso
+    const progressSection = document.createElement('div');
+    progressSection.innerHTML = `
+      <h5 class="font-bold text-lg mb-3 text-gray-800 dark:text-gray-200">Progreso</h5>
+      <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-6 mb-3 overflow-hidden">
+        <div id="progress-bar-${teamNum}" class="bg-gradient-to-r from-green-500 to-green-600 h-full rounded-full transition-all duration-500 flex items-center justify-center text-white text-xs font-bold" style="width: 0%"></div>
+      </div>
+      <p id="progress-text-${teamNum}" class="text-sm text-center text-gray-700 dark:text-gray-300 font-medium">0 de ${blanks.length} espacios completados</p>
+    `;
+    rightPanel.appendChild(progressSection);
+    
+    // Panel de ayuda
+    const helpSection = document.createElement('div');
+    helpSection.innerHTML = `
+      <h5 class="font-bold text-lg mb-3 text-gray-800 dark:text-gray-200">Ayuda</h5>
+      <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 p-4 rounded-lg text-sm">
+        <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-500 font-bold">1.</span>
+            <span>Encuentra todas las palabras en la búsqueda</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-500 font-bold">2.</span>
+            <span>Arrastra palabras a los espacios numerados [1], [2], etc.</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-500 font-bold">3.</span>
+            <span>Usa las pistas al pasar el cursor sobre los espacios</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-500 font-bold">4.</span>
+            <span>Haz clic en un espacio para limpiarlo</span>
+          </li>
+        </ul>
+      </div>
+    `;
+    rightPanel.appendChild(helpSection);
+    
+    layoutContainer.appendChild(rightPanel);
+    mainContainer.appendChild(layoutContainer);
+    gridElement.appendChild(mainContainer);
+    
+    // Verificar palabras encontradas y actualizar banco
+    updateWordBank(teamNum);
+    
+    console.log(`Modern drag-drop generated successfully for team ${teamNum}`);
   } catch (error) {
-    console.error(`Error generating crossword for team ${teamNum}:`, error);
+    console.error(`Error generating drag-drop for team ${teamNum}:`, error);
   }
 }
 
-// Manejar entrada en crucigrama
-function handleCrosswordInput(teamNum, event) {
-  const input = event.target;
-  const correct = input.dataset.correct.toLowerCase();
-  const value = input.value.toLowerCase();
+// Manejar drag over (entrada)
+function handleDragOver(event) {
+  event.preventDefault();
+  const dropZone = event.currentTarget;
+  dropZone.classList.add('bg-blue-700', 'border-blue-300', 'scale-105', 'shadow-lg');
+  dropZone.style.transform = 'scale(1.05)';
+}
+
+// Manejar drag leave (salida)
+function handleDragLeave(event) {
+  const dropZone = event.currentTarget;
+  dropZone.classList.remove('bg-blue-700', 'border-blue-300', 'scale-105', 'shadow-lg');
+  dropZone.style.transform = '';
+}
+
+// Manejar drop (soltar)
+function handleDrop(event, teamNum) {
+  event.preventDefault();
+  const dropZone = event.currentTarget;
+  const draggedWord = event.dataTransfer.getData('text/plain');
   
-  if (value === correct) {
-    input.parentElement.classList.add('correct');
-    gameStates[teamNum].crosswordCorrect.add(`${input.dataset.row}-${input.dataset.col}`);
+  // Limpiar efectos de hover
+  dropZone.classList.remove('bg-blue-700', 'border-blue-300', 'scale-105', 'shadow-lg');
+  dropZone.style.transform = '';
+  
+  if (draggedWord) {
+    const correct = dropZone.dataset.correct;
+    const blankId = dropZone.dataset.blankId;
+    
+    // Actualizar contenido
+    dropZone.textContent = draggedWord;
+    
+    // Verificar si es correcto
+    if (draggedWord.toLowerCase() === correct.toLowerCase()) {
+      // Correcto - estilo verde
+      dropZone.className = 'inline-flex items-center justify-center min-w-32 h-8 mx-1 px-3 bg-green-600 hover:bg-green-700 border-2 border-green-400 rounded-lg cursor-pointer transition-all duration-200 text-white font-semibold text-xs shadow-md';
+      gameStates[teamNum].dragdropCorrect.add(blankId);
+      
+      // Efecto de éxito
+      dropZone.style.animation = 'pulse 0.6s ease-in-out';
+      setTimeout(() => {
+        dropZone.style.animation = '';
+      }, 600);
+    } else {
+      // Incorrecto - estilo rojo
+      dropZone.className = 'inline-flex items-center justify-center min-w-32 h-8 mx-1 px-3 bg-red-600 hover:bg-red-700 border-2 border-red-400 rounded-lg cursor-pointer transition-all duration-200 text-white font-semibold text-xs shadow-md';
+      gameStates[teamNum].dragdropCorrect.delete(blankId);
+      
+      // Efecto de error (shake)
+      dropZone.style.animation = 'shake 0.5s ease-in-out';
+      setTimeout(() => {
+        dropZone.style.animation = '';
+      }, 500);
+    }
+    
+    // Actualizar progreso
+    updateProgress(teamNum);
+    updateCurrentGrade(teamNum); // Actualizar calificación
+    checkActivityCompletion(teamNum);
+  }
+}
+
+// Manejar click en drop zone para limpiar
+function handleDropZoneClick(event, teamNum) {
+  const dropZone = event.currentTarget;
+  const blankId = dropZone.dataset.blankId;
+  
+  // Solo limpiar si tiene contenido
+  if (dropZone.textContent !== `[${parseInt(blankId) + 1}]`) {
+    // Restaurar estado original
+    dropZone.textContent = `[${parseInt(blankId) + 1}]`;
+    dropZone.className = 'inline-flex items-center justify-center min-w-32 h-8 mx-1 px-3 bg-blue-600 hover:bg-blue-700 border-2 border-dashed border-blue-400 rounded-lg cursor-pointer transition-all duration-200 text-white font-semibold text-xs';
+    
+    // Remover de completados
+    gameStates[teamNum].dragdropCorrect.delete(blankId);
+    
+    // Actualizar progreso
+    updateProgress(teamNum);
+    updateCurrentGrade(teamNum); // Actualizar calificación
+    
+    // Efecto visual de limpieza
+    dropZone.style.animation = 'fadeIn 0.3s ease-in-out';
+    setTimeout(() => {
+      dropZone.style.animation = '';
+    }, 300);
+  }
+}
+
+// Actualizar banco de palabras con diseño moderno
+function updateWordBank(teamNum) {
+  const wordBank = document.getElementById(`word-bank-${teamNum}`);
+  if (!wordBank) return;
+  
+  const state = gameStates[teamNum];
+  const activity = TEAM_ACTIVITIES[teamNum];
+  
+  if (state.wordsearchFound.size === activity.wordsearch.words.length) {
+    // Todas las palabras encontradas - crear banco de palabras moderno
+    wordBank.innerHTML = '';
+    
+    // Título del banco
+    const bankTitle = document.createElement('div');
+    bankTitle.className = 'text-center text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 pb-2 border-b border-gray-300 dark:border-gray-600';
+    bankTitle.innerHTML = '¡Arrastra las palabras al código!';
+    wordBank.appendChild(bankTitle);
+    
+    // Contenedor de palabras
+    const wordsContainer = document.createElement('div');
+    wordsContainer.className = 'space-y-2';
+    
+    activity.wordsearch.words.forEach((word, index) => {
+      const wordElement = document.createElement('div');
+      wordElement.className = 'group relative bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-4 py-3 rounded-lg cursor-move transition-all duration-300 transform hover:scale-105 hover:shadow-lg font-bold text-center text-sm select-none';
+      wordElement.textContent = word;
+      wordElement.draggable = true;
+      
+      // Efecto de drag
+      wordElement.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', word);
+        wordElement.classList.add('opacity-40', 'scale-95');
+        
+        // Efecto visual en todo el banco
+        wordBank.classList.add('ring-2', 'ring-blue-300', 'dark:ring-blue-600');
+      });
+      
+      wordElement.addEventListener('dragend', () => {
+        wordElement.classList.remove('opacity-40', 'scale-95');
+        wordBank.classList.remove('ring-2', 'ring-blue-300', 'dark:ring-blue-600');
+      });
+      
+      // Efecto hover adicional
+      wordElement.addEventListener('mouseenter', () => {
+        wordElement.style.boxShadow = '0 8px 25px rgba(59, 130, 246, 0.4)';
+      });
+      
+      wordElement.addEventListener('mouseleave', () => {
+        wordElement.style.boxShadow = '';
+      });
+      
+      wordsContainer.appendChild(wordElement);
+    });
+    
+    wordBank.appendChild(wordsContainer);
+    
+    // Mensaje de ayuda
+    const helpMessage = document.createElement('div');
+    helpMessage.className = 'text-center text-xs text-gray-500 dark:text-gray-400 mt-3 pt-2 border-t border-gray-300 dark:border-gray-600';
+    helpMessage.textContent = `${activity.wordsearch.words.length} palabras disponibles`;
+    wordBank.appendChild(helpMessage);
+    
   } else {
-    input.parentElement.classList.remove('correct');
-    gameStates[teamNum].crosswordCorrect.delete(`${input.dataset.row}-${input.dataset.col}`);
+    // Mostrar progreso de búsqueda de palabras
+    const foundCount = state.wordsearchFound.size;
+    const totalCount = activity.wordsearch.words.length;
+    const percentage = Math.round((foundCount / totalCount) * 100);
+    
+    wordBank.innerHTML = `
+      <div class="text-center py-8">
+        <h6 class="font-bold text-gray-700 dark:text-gray-300 mb-2">Búsqueda en Progreso</h6>
+        <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-3 overflow-hidden">
+          <div class="bg-gradient-to-r from-yellow-400 to-orange-500 h-full rounded-full transition-all duration-500" style="width: ${percentage}%"></div>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          <span class="font-bold text-blue-600 dark:text-blue-400">${foundCount}</span> de 
+          <span class="font-bold">${totalCount}</span> palabras encontradas
+        </p>
+        <p class="text-xs text-gray-500 dark:text-gray-500 mt-2">
+          Completa la búsqueda para activar el banco de palabras
+        </p>
+      </div>
+    `;
+  }
+}
+
+// Actualizar progreso del drag-drop con efectos modernos
+function updateProgress(teamNum) {
+  const activity = TEAM_ACTIVITIES[teamNum];
+  const state = gameStates[teamNum];
+  const progressBar = document.getElementById(`progress-bar-${teamNum}`);
+  const progressText = document.getElementById(`progress-text-${teamNum}`);
+  
+  if (!progressBar || !progressText || !activity.dragdrop) return;
+  
+  const completed = state.dragdropCorrect.size;
+  const total = activity.dragdrop.blanks.length;
+  const percentage = (completed / total) * 100;
+  
+  // Actualizar barra de progreso con animación
+  progressBar.style.width = `${percentage}%`;
+  
+  // Cambiar color según progreso
+  if (percentage === 100) {
+    progressBar.className = 'bg-gradient-to-r from-green-500 to-emerald-600 h-full rounded-full transition-all duration-500 flex items-center justify-center text-white text-xs font-bold';
+    progressBar.textContent = '¡Completado!';
+  } else if (percentage >= 75) {
+    progressBar.className = 'bg-gradient-to-r from-blue-500 to-purple-600 h-full rounded-full transition-all duration-500 flex items-center justify-center text-white text-xs font-bold';
+    progressBar.textContent = `${Math.round(percentage)}%`;
+  } else if (percentage >= 50) {
+    progressBar.className = 'bg-gradient-to-r from-yellow-500 to-orange-600 h-full rounded-full transition-all duration-500 flex items-center justify-center text-white text-xs font-bold';
+    progressBar.textContent = `${Math.round(percentage)}%`;
+  } else {
+    progressBar.className = 'bg-gradient-to-r from-gray-500 to-gray-600 h-full rounded-full transition-all duration-500 flex items-center justify-center text-white text-xs font-bold';
+    progressBar.textContent = percentage > 0 ? `${Math.round(percentage)}%` : '';
   }
   
-  checkActivityCompletion(teamNum);
+  // Actualizar texto con emojis
+  const progressEmoji = percentage === 100 ? '¡Perfecto!' : 
+                       percentage >= 75 ? 'Casi lo logras' : 
+                       percentage >= 50 ? '¡Bien hecho!' : 
+                       percentage > 0 ? '¡Sigue así!' : '¡Comienza ya!';
+  
+  progressText.innerHTML = `
+    <span class="inline-flex items-center space-x-1">
+      <span>${progressEmoji}</span>
+      <span><strong>${completed}</strong> de <strong>${total}</strong> espacios completados</span>
+    </span>
+  `;
 }
 
 // Verificar completitud de actividades
@@ -1410,34 +1820,109 @@ function checkActivityCompletion(teamNum) {
   const state = gameStates[teamNum];
   
   const wordsearchComplete = state.wordsearchFound.size === activity.wordsearch.words.length;
-  const crosswordComplete = state.crosswordCorrect.size === getTotalCrosswordCells(teamNum);
+  const dragdropComplete = activity.dragdrop ? 
+    state.dragdropCorrect.size === activity.dragdrop.blanks.length : true;
   
-  if (wordsearchComplete && crosswordComplete) {
+  if (wordsearchComplete && dragdropComplete) {
     showCompletionModal(teamNum);
   }
 }
 
-// Obtener total de celdas del crucigrama
-function getTotalCrosswordCells(teamNum) {
+// Inicializar estado del juego para drag-drop
+function initGameState(teamNum) {
+  if (!gameStates[teamNum]) {
+    gameStates[teamNum] = {
+      wordsearchFound: new Set(),
+      dragdropCorrect: new Set()
+    };
+  }
+  
+  // Asegurar que dragdropCorrect existe
+  if (!gameStates[teamNum].dragdropCorrect) {
+    gameStates[teamNum].dragdropCorrect = new Set();
+  }
+}
+
+// Calcular y actualizar la calificación actual
+function updateCurrentGrade(teamNum) {
   const activity = TEAM_ACTIVITIES[teamNum];
-  let totalCells = 0;
+  const state = gameStates[teamNum];
   
-  activity.crossword.words.forEach(wordData => {
-    totalCells += wordData.word.length;
-  });
+  if (!activity) return;
   
-  // Restar intersecciones duplicadas
-  const intersections = new Set();
-  activity.crossword.words.forEach(wordData => {
-    const { word, row, col, direction } = wordData;
-    for (let i = 0; i < word.length; i++) {
-      const currentRow = direction === 'across' ? row : row + i;
-      const currentCol = direction === 'across' ? col + i : col;
-      intersections.add(`${currentRow}-${currentCol}`);
+  // Calcular puntuaciones
+  const wordsearchTotal = activity.wordsearch.words.length;
+  const wordsearchFound = state.wordsearchFound.size;
+  const wordsearchScore = wordsearchTotal > 0 ? (wordsearchFound / wordsearchTotal) * 2.5 : 0; // 50% de la nota (2.5/5.0)
+  
+  const dragdropTotal = activity.dragdrop ? activity.dragdrop.blanks.length : 0;
+  const dragdropCorrect = state.dragdropCorrect.size;
+  const dragdropScore = dragdropTotal > 0 ? (dragdropCorrect / dragdropTotal) * 2.5 : 0; // 50% de la nota (2.5/5.0)
+  
+  const totalGrade = wordsearchScore + dragdropScore;
+  
+  // Actualizar elementos del DOM
+  const gradeElement = document.getElementById('current-grade');
+  const progressBar = document.getElementById('grade-progress-bar');
+  const wordsearchScoreElement = document.getElementById('wordsearch-score');
+  const dragdropScoreElement = document.getElementById('dragdrop-score');
+  
+  if (gradeElement) {
+    gradeElement.textContent = totalGrade.toFixed(1);
+    
+    // Cambiar color según la nota
+    gradeElement.className = 'text-4xl font-bold text-transparent bg-clip-text';
+    if (totalGrade >= 4.5) {
+      gradeElement.classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-600');
+    } else if (totalGrade >= 3.5) {
+      gradeElement.classList.add('bg-gradient-to-r', 'from-blue-500', 'to-cyan-600');
+    } else if (totalGrade >= 2.5) {
+      gradeElement.classList.add('bg-gradient-to-r', 'from-yellow-500', 'to-orange-500');
+    } else {
+      gradeElement.classList.add('bg-gradient-to-r', 'from-red-500', 'to-pink-600');
     }
-  });
+  }
   
-  return intersections.size;
+  if (progressBar) {
+    const percentage = (totalGrade / 5.0) * 100;
+    progressBar.style.width = `${percentage}%`;
+    
+    // Cambiar color de la barra según la nota
+    progressBar.className = 'h-full rounded-full transition-all duration-500';
+    if (totalGrade >= 4.5) {
+      progressBar.classList.add('bg-gradient-to-r', 'from-green-400', 'to-emerald-600');
+    } else if (totalGrade >= 3.5) {
+      progressBar.classList.add('bg-gradient-to-r', 'from-blue-400', 'to-cyan-600');
+    } else if (totalGrade >= 2.5) {
+      progressBar.classList.add('bg-gradient-to-r', 'from-yellow-400', 'to-orange-500');
+    } else {
+      progressBar.classList.add('bg-gradient-to-r', 'from-red-400', 'to-pink-600');
+    }
+  }
+  
+  if (wordsearchScoreElement) {
+    wordsearchScoreElement.textContent = `${wordsearchFound} / ${wordsearchTotal}`;
+  }
+  
+  if (dragdropScoreElement) {
+    dragdropScoreElement.textContent = `${dragdropCorrect} / ${dragdropTotal}`;
+  }
+  
+  // Efecto de celebración si se alcanza la nota máxima
+  if (totalGrade === 5.0) {
+    celebrateMaxGrade();
+  }
+}
+
+// Efecto de celebración para nota máxima
+function celebrateMaxGrade() {
+  const gradeElement = document.getElementById('current-grade');
+  if (gradeElement) {
+    gradeElement.style.animation = 'pulse 1s ease-in-out 3';
+    setTimeout(() => {
+      gradeElement.style.animation = '';
+    }, 3000);
+  }
 }
 
 // Mostrar modal de completitud

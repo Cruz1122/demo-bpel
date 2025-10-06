@@ -41,19 +41,53 @@
         /* Estilos para Actividades Interactivas */
         .wordsearch-grid {
             display: grid;
-            gap: 2px;
-            max-width: 400px;
+            gap: 1px;
+            max-width: 550px;
+            margin: 0 auto;
+            justify-self: center;
+        }
+        
+        /* Animaciones para drag-and-drop */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Efectos de hover mejorados */
+        .drag-word:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .drop-zone-active {
+            animation: pulse 2s infinite;
         }
         
         .wordsearch-cell {
-            width: 28px;
-            height: 28px;
+            width: 22px;
+            height: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid #d1d5db;
             background-color: #f9fafb;
-            font-size: 14px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
@@ -258,11 +292,45 @@
                 </div>
             </div>
 
+            <!-- Panel de Calificación -->
+            <div class="flex justify-center mb-8">
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl border border-blue-200 dark:border-blue-700 p-6 min-w-80">
+                    <div class="text-center">
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2 flex items-center justify-center">
+                            <span class="material-symbols-outlined mr-2 text-yellow-500">star</span>
+                            Nota Actual
+                        </h3>
+                        <div class="flex items-center justify-center space-x-4">
+                            <div class="text-4xl font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text" id="current-grade">
+                                0.0
+                            </div>
+                            <div class="text-gray-500 dark:text-gray-400 text-lg">/</div>
+                            <div class="text-2xl font-bold text-gray-700 dark:text-gray-300">5.0</div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+                                <div id="grade-progress-bar" class="bg-gradient-to-r from-yellow-400 via-green-500 to-green-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 space-y-1 text-sm">
+                            <div class="flex justify-between text-gray-600 dark:text-gray-400">
+                                <span>Sopa de letras:</span>
+                                <span id="wordsearch-score">0 / 0</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600 dark:text-gray-400">
+                                <span>Código completado:</span>
+                                <span id="dragdrop-score">0 / 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Contenido de Actividades por Equipo -->
             <div id="team-activities">
                 <!-- Equipo 1 -->
                 <div id="team-1-content" class="team-content">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
                         <!-- Sopa de Letras -->
                         <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
                             <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
@@ -276,17 +344,15 @@
                             <div id="team-1-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
-                        <!-- Crucigrama -->
-                        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                                <span class="material-symbols-outlined mr-2">apps</span>
-                                Crucigrama: Elementos BPEL
-                            </h3>
-                            <div class="mb-4">
-                                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Pistas:</h4>
-                                <div id="team-1-clues" class="space-y-2 text-sm max-h-40 overflow-y-auto"></div>
+                        <!-- Completar Código BPEL -->
+                        <div class="lg:col-span-2">
+                            <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                                    <span class="material-symbols-outlined mr-2">code</span>
+                                    Completar Código BPEL
+                                </h3>
+                                <div id="team-1-crossword" class="w-full"></div>
                             </div>
-                            <div id="team-1-crossword" class="crossword-grid mx-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -307,17 +373,15 @@
                             <div id="team-2-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
-                        <!-- Crucigrama -->
-                        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                                <span class="material-symbols-outlined mr-2">apps</span>
-                                Crucigrama: Flujo y Decisiones
-                            </h3>
-                            <div class="mb-4">
-                                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Pistas:</h4>
-                                <div id="team-2-clues" class="space-y-2 text-sm max-h-40 overflow-y-auto"></div>
+                        <!-- Completar Código BPEL -->
+                        <div class="lg:col-span-2">
+                            <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                                    <span class="material-symbols-outlined mr-2">code</span>
+                                    Completar Código BPEL
+                                </h3>
+                                <div id="team-2-crossword" class="w-full"></div>
                             </div>
-                            <div id="team-2-crossword" class="crossword-grid mx-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -338,17 +402,15 @@
                             <div id="team-3-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
-                        <!-- Crucigrama -->
-                        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                                <span class="material-symbols-outlined mr-2">apps</span>
-                                Crucigrama: Mensajería y Esquemas
-                            </h3>
-                            <div class="mb-4">
-                                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Pistas:</h4>
-                                <div id="team-3-clues" class="space-y-2 text-sm max-h-40 overflow-y-auto"></div>
+                        <!-- Completar Código BPEL -->
+                        <div class="lg:col-span-2">
+                            <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                                    <span class="material-symbols-outlined mr-2">code</span>
+                                    Completar Código BPEL
+                                </h3>
+                                <div id="team-3-crossword" class="w-full"></div>
                             </div>
-                            <div id="team-3-crossword" class="crossword-grid mx-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -369,17 +431,15 @@
                             <div id="team-4-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
-                        <!-- Crucigrama -->
-                        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                                <span class="material-symbols-outlined mr-2">apps</span>
-                                Crucigrama: Error y Compensación
-                            </h3>
-                            <div class="mb-4">
-                                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Pistas:</h4>
-                                <div id="team-4-clues" class="space-y-2 text-sm max-h-40 overflow-y-auto"></div>
+                        <!-- Completar Código BPEL -->
+                        <div class="lg:col-span-2">
+                            <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                                    <span class="material-symbols-outlined mr-2">code</span>
+                                    Completar Código BPEL
+                                </h3>
+                                <div id="team-4-crossword" class="w-full"></div>
                             </div>
-                            <div id="team-4-crossword" class="crossword-grid mx-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -400,17 +460,15 @@
                             <div id="team-5-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
-                        <!-- Crucigrama -->
-                        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                                <span class="material-symbols-outlined mr-2">apps</span>
-                                Crucigrama: Organizaciones y Tecnologías
-                            </h3>
-                            <div class="mb-4">
-                                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Pistas:</h4>
-                                <div id="team-5-clues" class="space-y-2 text-sm max-h-40 overflow-y-auto"></div>
+                        <!-- Completar Código BPEL -->
+                        <div class="lg:col-span-2">
+                            <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                                    <span class="material-symbols-outlined mr-2">code</span>
+                                    Completar Código BPEL
+                                </h3>
+                                <div id="team-5-crossword" class="w-full"></div>
                             </div>
-                            <div id="team-5-crossword" class="crossword-grid mx-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -431,17 +489,15 @@
                             <div id="team-6-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
-                        <!-- Crucigrama -->
-                        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                                <span class="material-symbols-outlined mr-2">apps</span>
-                                Crucigrama: Procesos y Variables
-                            </h3>
-                            <div class="mb-4">
-                                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Pistas:</h4>
-                                <div id="team-6-clues" class="space-y-2 text-sm max-h-40 overflow-y-auto"></div>
+                        <!-- Completar Código BPEL -->
+                        <div class="lg:col-span-2">
+                            <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                                    <span class="material-symbols-outlined mr-2">code</span>
+                                    Completar Código BPEL
+                                </h3>
+                                <div id="team-6-crossword" class="w-full"></div>
                             </div>
-                            <div id="team-6-crossword" class="crossword-grid mx-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -462,17 +518,15 @@
                             <div id="team-7-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
-                        <!-- Crucigrama -->
-                        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                                <span class="material-symbols-outlined mr-2">apps</span>
-                                Crucigrama: Coreografía y Orquestación
-                            </h3>
-                            <div class="mb-4">
-                                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Pistas:</h4>
-                                <div id="team-7-clues" class="space-y-2 text-sm max-h-40 overflow-y-auto"></div>
+                        <!-- Completar Código BPEL -->
+                        <div class="lg:col-span-2">
+                            <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                                    <span class="material-symbols-outlined mr-2">code</span>
+                                    Completar Código BPEL
+                                </h3>
+                                <div id="team-7-crossword" class="w-full"></div>
                             </div>
-                            <div id="team-7-crossword" class="crossword-grid mx-auto"></div>
                         </div>
                     </div>
                 </div>
