@@ -281,13 +281,13 @@
                         Equipo 4
                     </button>
                     <button id="team-5-btn" class="team-btn px-4 py-2 text-sm font-medium rounded-lg transition-all text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
-                        Equipo 5
-                    </button>
-                    <button id="team-6-btn" class="team-btn px-4 py-2 text-sm font-medium rounded-lg transition-all text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
                         Equipo 6
                     </button>
-                    <button id="team-7-btn" class="team-btn px-4 py-2 text-sm font-medium rounded-lg transition-all text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <button id="team-6-btn" class="team-btn px-4 py-2 text-sm font-medium rounded-lg transition-all text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
                         Equipo 7
+                    </button>
+                    <button id="team-7-btn" class="team-btn px-4 py-2 text-sm font-medium rounded-lg transition-all text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
+                        Equipo 8
                     </button>
                 </div>
             </div>
@@ -344,6 +344,60 @@
                             <div id="team-1-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
+                        <!-- Ayuda: Explicación de Palabras -->
+                        <div class="rounded-xl border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 p-6 mt-6 mb-8">
+                            <h3 class="text-xl font-bold text-blue-900 dark:text-blue-100 mb-4 flex items-center">
+                                <span class="material-symbols-outlined mr-2">help</span>
+                                Guía de Términos BPEL - Fundamentos
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-blue-600">
+                                        <h4 class="font-bold text-blue-800 dark:text-blue-200">RECEIVE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad que recibe mensajes de entrada desde servicios externos o clientes. Es el punto de entrada del proceso BPEL.</p>
+                                        <span class="text-xs text-blue-600 dark:text-blue-400 italic">Ejemplo: Recibir una solicitud de pedido del cliente</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-blue-600">
+                                        <h4 class="font-bold text-blue-800 dark:text-blue-200">INVOKE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad que invoca servicios web externos. Puede ser síncrona (espera respuesta) o asíncrona.</p>
+                                        <span class="text-xs text-blue-600 dark:text-blue-400 italic">Ejemplo: Llamar al servicio de pago para autorizar una transacción</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-blue-600">
+                                        <h4 class="font-bold text-blue-800 dark:text-blue-200">REPLY</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad que envía respuestas de vuelta al cliente que inició el proceso. Cierra la conversación.</p>
+                                        <span class="text-xs text-blue-600 dark:text-blue-400 italic">Ejemplo: Confirmar al cliente que su pedido fue procesado</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-blue-600">
+                                        <h4 class="font-bold text-blue-800 dark:text-blue-200">ASSIGN</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad para manipular y copiar datos entre variables del proceso.</p>
+                                        <span class="text-xs text-blue-600 dark:text-blue-400 italic">Ejemplo: Copiar información del cliente a la respuesta del pedido</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-blue-600">
+                                        <h4 class="font-bold text-blue-800 dark:text-blue-200">VARIABLE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Almacena datos durante la ejecución del proceso. Pueden ser de diferentes tipos (mensaje, elemento XML, tipo simple).</p>
+                                        <span class="text-xs text-blue-600 dark:text-blue-400 italic">Ejemplo: Variable que contiene los datos del pedido</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-blue-600">
+                                        <h4 class="font-bold text-blue-800 dark:text-blue-200">SEQUENCE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad estructurada que ejecuta un conjunto de actividades de forma secuencial, una tras otra.</p>
+                                        <span class="text-xs text-blue-600 dark:text-blue-400 italic">Ejemplo: Ejecutar primero el pago, luego reservar inventario</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-blue-600">
+                                        <h4 class="font-bold text-blue-800 dark:text-blue-200">PAYMENTRESULT</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Variable específica que almacena el resultado de una operación de pago (aprobado/rechazado).</p>
+                                        <span class="text-xs text-blue-600 dark:text-blue-400 italic">Ejemplo: Contiene si el pago fue autorizado o denegado</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-blue-600">
+                                        <h4 class="font-bold text-blue-800 dark:text-blue-200">ORDERRESPONSE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Variable que contiene la respuesta final que se envía al cliente con el resultado del procesamiento.</p>
+                                        <span class="text-xs text-blue-600 dark:text-blue-400 italic">Ejemplo: Mensaje de confirmación o rechazo del pedido</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Completar Código BPEL -->
                         <div class="lg:col-span-2">
                             <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
@@ -371,6 +425,65 @@
                                 <div id="team-2-words" class="grid grid-cols-2 gap-2 text-sm"></div>
                             </div>
                             <div id="team-2-wordsearch" class="wordsearch-grid mx-auto"></div>
+                        </div>
+
+                        <!-- Ayuda: Explicación de Palabras -->
+                        <div class="rounded-xl border border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20 p-6 mt-6 mb-8">
+                            <h3 class="text-xl font-bold text-green-900 dark:text-green-100 mb-4 flex items-center">
+                                <span class="material-symbols-outlined mr-2">help</span>
+                                Guía de Términos BPEL - Control de Flujo
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-600">
+                                        <h4 class="font-bold text-green-800 dark:text-green-200">IF</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Estructura condicional que permite bifurcar el flujo de ejecución basado en condiciones lógicas.</p>
+                                        <span class="text-xs text-green-600 dark:text-green-400 italic">Ejemplo: Si el monto > 1000, verificar crédito</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-600">
+                                        <h4 class="font-bold text-green-800 dark:text-green-200">CONDITION</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Expresión XPath que se evalúa como verdadero o falso para determinar qué rama ejecutar.</p>
+                                        <span class="text-xs text-green-600 dark:text-green-400 italic">Ejemplo: $paymentResult.approved = true</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-600">
+                                        <h4 class="font-bold text-green-800 dark:text-green-200">FLOW</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad que permite la ejecución paralela de múltiples actividades simultáneamente.</p>
+                                        <span class="text-xs text-green-600 dark:text-green-400 italic">Ejemplo: Procesar pago e inventario al mismo tiempo</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-600">
+                                        <h4 class="font-bold text-green-800 dark:text-green-200">WHILE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad de bucle que repite una secuencia de actividades mientras una condición sea verdadera.</p>
+                                        <span class="text-xs text-green-600 dark:text-green-400 italic">Ejemplo: Reintentar pago mientras fallos < 3</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-600">
+                                        <h4 class="font-bold text-green-800 dark:text-green-200">PICK</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad que espera por uno de varios eventos posibles (mensajes o alarmas de tiempo).</p>
+                                        <span class="text-xs text-green-600 dark:text-green-400 italic">Ejemplo: Esperar confirmación del cliente o timeout</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-600">
+                                        <h4 class="font-bold text-green-800 dark:text-green-200">SCOPE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Contenedor que agrupa actividades y define manejadores de errores y compensación.</p>
+                                        <span class="text-xs text-green-600 dark:text-green-400 italic">Ejemplo: Agrupar operaciones de pago con manejo de errores</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-600">
+                                        <h4 class="font-bold text-green-800 dark:text-green-200">CREDITCHECK</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Variable o proceso específico para verificar la solvencia crediticia de un cliente.</p>
+                                        <span class="text-xs text-green-600 dark:text-green-400 italic">Ejemplo: Datos del cliente para verificación crediticia</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-600">
+                                        <h4 class="font-bold text-green-800 dark:text-green-200">APPROVED</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Estado o valor booleano que indica si una operación (pago, crédito) fue aprobada.</p>
+                                        <span class="text-xs text-green-600 dark:text-green-400 italic">Ejemplo: creditResult.approved = true</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-green-200 dark:border-green-600">
+                                        <h4 class="font-bold text-green-800 dark:text-green-200">PARALLEL</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Concepto de ejecución simultánea de múltiples actividades usando la actividad &lt;flow&gt;.</p>
+                                        <span class="text-xs text-green-600 dark:text-green-400 italic">Ejemplo: Procesar múltiples servicios al mismo tiempo</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Completar Código BPEL -->
@@ -402,6 +515,65 @@
                             <div id="team-3-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
+                        <!-- Ayuda: Explicación de Palabras -->
+                        <div class="rounded-xl border border-purple-200 dark:border-purple-700 bg-purple-50 dark:bg-purple-900/20 p-6 mt-6 mb-8">
+                            <h3 class="text-xl font-bold text-purple-900 dark:text-purple-100 mb-4 flex items-center">
+                                <span class="material-symbols-outlined mr-2">help</span>
+                                Guía de Términos BPEL - Servicios y Datos
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-600">
+                                        <h4 class="font-bold text-purple-800 dark:text-purple-200">ASSIGN</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad fundamental para manipular datos, copiar valores entre variables y realizar transformaciones.</p>
+                                        <span class="text-xs text-purple-600 dark:text-purple-400 italic">Ejemplo: Copiar nombre del cliente a la respuesta</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-600">
+                                        <h4 class="font-bold text-purple-800 dark:text-purple-200">COPY</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Elemento dentro de &lt;assign&gt; que especifica una operación de copia de datos de origen a destino.</p>
+                                        <span class="text-xs text-purple-600 dark:text-purple-400 italic">Ejemplo: &lt;copy from="$input" to="$output"&gt;</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-600">
+                                        <h4 class="font-bold text-purple-800 dark:text-purple-200">FROM</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Especifica el origen de los datos en una operación de copia. Puede ser una variable, expresión o literal.</p>
+                                        <span class="text-xs text-purple-600 dark:text-purple-400 italic">Ejemplo: from="$customerInfo.name"</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-600">
+                                        <h4 class="font-bold text-purple-800 dark:text-purple-200">TO</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Especifica el destino donde se copiarán los datos. Debe ser una ubicación escribible.</p>
+                                        <span class="text-xs text-purple-600 dark:text-purple-400 italic">Ejemplo: to="$order.customerName"</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-600">
+                                        <h4 class="font-bold text-purple-800 dark:text-purple-200">VARIABLE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Contenedor de datos que puede almacenar mensajes, elementos XML o tipos simples durante la ejecución.</p>
+                                        <span class="text-xs text-purple-600 dark:text-purple-400 italic">Ejemplo: Variable que contiene información del cliente</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-600">
+                                        <h4 class="font-bold text-purple-800 dark:text-purple-200">PARTNER</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Referencia a un servicio externo con el que el proceso BPEL interactúa mediante PartnerLinks.</p>
+                                        <span class="text-xs text-purple-600 dark:text-purple-400 italic">Ejemplo: Servicio de pago o inventario</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-600">
+                                        <h4 class="font-bold text-purple-800 dark:text-purple-200">ORDERDATA</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Variable o estructura de datos que contiene toda la información relacionada con un pedido.</p>
+                                        <span class="text-xs text-purple-600 dark:text-purple-400 italic">Ejemplo: Productos, cantidades, precios del pedido</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-600">
+                                        <h4 class="font-bold text-purple-800 dark:text-purple-200">CUSTOMERINFO</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Estructura de datos que contiene información del cliente (nombre, dirección, contacto).</p>
+                                        <span class="text-xs text-purple-600 dark:text-purple-400 italic">Ejemplo: Datos personales para facturación y envío</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-purple-200 dark:border-purple-600">
+                                        <h4 class="font-bold text-purple-800 dark:text-purple-200">TOTALAMOUNT</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Variable que almacena el monto total calculado de una transacción o pedido.</p>
+                                        <span class="text-xs text-purple-600 dark:text-purple-400 italic">Ejemplo: Suma de productos + impuestos + envío</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Completar Código BPEL -->
                         <div class="lg:col-span-2">
                             <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
@@ -429,6 +601,65 @@
                                 <div id="team-4-words" class="grid grid-cols-2 gap-2 text-sm"></div>
                             </div>
                             <div id="team-4-wordsearch" class="wordsearch-grid mx-auto"></div>
+                        </div>
+
+                        <!-- Ayuda: Explicación de Palabras -->
+                        <div class="rounded-xl border border-red-200 dark:border-red-700 bg-red-50 dark:bg-red-900/20 p-6 mt-6 mb-8">
+                            <h3 class="text-xl font-bold text-red-900 dark:text-red-100 mb-4 flex items-center">
+                                <span class="material-symbols-outlined mr-2">help</span>
+                                Guía de Términos BPEL - Manejo de Excepciones
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-600">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200">SCOPE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Contenedor que agrupa actividades y define contexto para manejo de errores, compensación y eventos.</p>
+                                        <span class="text-xs text-red-600 dark:text-red-400 italic">Ejemplo: Agrupar operaciones críticas con manejo de fallos</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-600">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200">CATCH</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Manejador que captura y procesa excepciones específicas que ocurren durante la ejecución.</p>
+                                        <span class="text-xs text-red-600 dark:text-red-400 italic">Ejemplo: Capturar errores de pago para reintentarlo</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-600">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200">FAULT</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Excepción o error que puede ser lanzado durante la ejecución de actividades.</p>
+                                        <span class="text-xs text-red-600 dark:text-red-400 italic">Ejemplo: Fault de servicio no disponible</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-600">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200">THROW</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad que lanza explícitamente una excepción para indicar una condición de error.</p>
+                                        <span class="text-xs text-red-600 dark:text-red-400 italic">Ejemplo: Lanzar error si datos son inválidos</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-600">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200">HANDLER</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Mecanismo general para manejar eventos, errores o compensaciones en un scope.</p>
+                                        <span class="text-xs text-red-600 dark:text-red-400 italic">Ejemplo: faultHandler, compensationHandler</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-600">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200">COMPENSATE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Actividad que invoca mecanismos de compensación para deshacer efectos de actividades completadas.</p>
+                                        <span class="text-xs text-red-600 dark:text-red-400 italic">Ejemplo: Reembolsar pago si falla el envío</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-600">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200">PAYMENTFAULT</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Tipo específico de excepción relacionada con errores en operaciones de pago.</p>
+                                        <span class="text-xs text-red-600 dark:text-red-400 italic">Ejemplo: Tarjeta rechazada, fondos insuficientes</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-600">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200">TIMEOUT</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Condición de error que ocurre cuando una operación excede el tiempo límite establecido.</p>
+                                        <span class="text-xs text-red-600 dark:text-red-400 italic">Ejemplo: Servicio externo no responde en 30 segundos</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-600">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200">ROLLBACK</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Proceso de deshacer transacciones y regresar al estado anterior cuando ocurre un error.</p>
+                                        <span class="text-xs text-red-600 dark:text-red-400 italic">Ejemplo: Anular todas las operaciones de un pedido fallido</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Completar Código BPEL -->
@@ -460,6 +691,60 @@
                             <div id="team-5-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
+                        <!-- Ayuda: Explicación de Palabras -->
+                        <div class="rounded-xl border border-yellow-200 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-900/20 p-6 mt-6 mb-8">
+                            <h3 class="text-xl font-bold text-yellow-900 dark:text-yellow-100 mb-4 flex items-center">
+                                <span class="material-symbols-outlined mr-2">help</span>
+                                Guía de Términos BPEL - Historia y Estándares
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-yellow-200 dark:border-yellow-600">
+                                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200">PROCESS</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Elemento raíz que define un proceso BPEL completo. Contiene todas las actividades, variables y configuraciones.</p>
+                                        <span class="text-xs text-yellow-600 dark:text-yellow-400 italic">Ejemplo: &lt;process name="OrderProcess"&gt;</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-yellow-200 dark:border-yellow-600">
+                                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200">XMLNS</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Declaración de espacio de nombres XML que define prefijos para elementos y tipos.</p>
+                                        <span class="text-xs text-yellow-600 dark:text-yellow-400 italic">Ejemplo: xmlns:tns="http://example.com"</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-yellow-200 dark:border-yellow-600">
+                                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200">TARGETNAMESPACE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Espacio de nombres objetivo que identifica únicamente el proceso BPEL.</p>
+                                        <span class="text-xs text-yellow-600 dark:text-yellow-400 italic">Ejemplo: targetNamespace="http://mycompany.com/bpel"</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-yellow-200 dark:border-yellow-600">
+                                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200">IMPORT</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Elemento para importar recursos externos como WSDL, esquemas XML u otros artefactos.</p>
+                                        <span class="text-xs text-yellow-600 dark:text-yellow-400 italic">Ejemplo: Importar definiciones de servicios web</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-yellow-200 dark:border-yellow-600">
+                                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200">WSDL</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Web Services Description Language - estándar para describir servicios web y sus operaciones.</p>
+                                        <span class="text-xs text-yellow-600 dark:text-yellow-400 italic">Ejemplo: Archivo PaymentService.wsdl</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-yellow-200 dark:border-yellow-600">
+                                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200">SCHEMA</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Definición XML Schema (XSD) que especifica la estructura y tipos de datos utilizados.</p>
+                                        <span class="text-xs text-yellow-600 dark:text-yellow-400 italic">Ejemplo: Esquema para validar mensajes de entrada</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-yellow-200 dark:border-yellow-600">
+                                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200">NAMESPACE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Identificador único (URI) que agrupa elementos relacionados y evita conflictos de nombres.</p>
+                                        <span class="text-xs text-yellow-600 dark:text-yellow-400 italic">Ejemplo: http://docs.oasis-open.org/wsbpel/2.0</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-yellow-200 dark:border-yellow-600">
+                                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200">VERSION</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Identificador de versión del estándar BPEL utilizado (1.1, 2.0) o de recursos importados.</p>
+                                        <span class="text-xs text-yellow-600 dark:text-yellow-400 italic">Ejemplo: BPEL 2.0 es la versión estándar actual</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Completar Código BPEL -->
                         <div class="lg:col-span-2">
                             <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
@@ -489,6 +774,60 @@
                             <div id="team-6-wordsearch" class="wordsearch-grid mx-auto"></div>
                         </div>
 
+                        <!-- Ayuda: Explicación de Palabras -->
+                        <div class="rounded-xl border border-indigo-200 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-900/20 p-6 mt-6 mb-8">
+                            <h3 class="text-xl font-bold text-indigo-900 dark:text-indigo-100 mb-4 flex items-center">
+                                <span class="material-symbols-outlined mr-2">help</span>
+                                Guía de Términos BPEL - Ejecución y Motor
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-indigo-200 dark:border-indigo-600">
+                                        <h4 class="font-bold text-indigo-800 dark:text-indigo-200">VARIABLES</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Contenedor que agrupa todas las declaraciones de variables utilizadas en el proceso BPEL.</p>
+                                        <span class="text-xs text-indigo-600 dark:text-indigo-400 italic">Ejemplo: &lt;variables&gt; contiene todas las variables</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-indigo-200 dark:border-indigo-600">
+                                        <h4 class="font-bold text-indigo-800 dark:text-indigo-200">VARIABLE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Elemento individual que define una variable con su nombre y tipo de datos específico.</p>
+                                        <span class="text-xs text-indigo-600 dark:text-indigo-400 italic">Ejemplo: &lt;variable name="orderData" type="..."&gt;</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-indigo-200 dark:border-indigo-600">
+                                        <h4 class="font-bold text-indigo-800 dark:text-indigo-200">MESSAGETYPE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Tipo de variable basado en un mensaje definido en WSDL. Usado para datos de entrada/salida.</p>
+                                        <span class="text-xs text-indigo-600 dark:text-indigo-400 italic">Ejemplo: messageType="tns:OrderMessage"</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-indigo-200 dark:border-indigo-600">
+                                        <h4 class="font-bold text-indigo-800 dark:text-indigo-200">ELEMENT</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Tipo de variable basado en un elemento XML Schema. Usado para datos estructurados.</p>
+                                        <span class="text-xs text-indigo-600 dark:text-indigo-400 italic">Ejemplo: element="tns:CustomerData"</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-indigo-200 dark:border-indigo-600">
+                                        <h4 class="font-bold text-indigo-800 dark:text-indigo-200">TYPE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Atributo que especifica el tipo de datos de una variable (messageType, element, o tipo simple).</p>
+                                        <span class="text-xs text-indigo-600 dark:text-indigo-400 italic">Ejemplo: type="xsd:string" para texto simple</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-indigo-200 dark:border-indigo-600">
+                                        <h4 class="font-bold text-indigo-800 dark:text-indigo-200">CORRELATIONSET</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Mecanismo para correlacionar mensajes relacionados en conversaciones asíncronas largas.</p>
+                                        <span class="text-xs text-indigo-600 dark:text-indigo-400 italic">Ejemplo: Correlacionar por número de pedido</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-indigo-200 dark:border-indigo-600">
+                                        <h4 class="font-bold text-indigo-800 dark:text-indigo-200">PROPERTY</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Elemento de datos extraído de mensajes para usar en correlación o routing de mensajes.</p>
+                                        <span class="text-xs text-indigo-600 dark:text-indigo-400 italic">Ejemplo: Extraer ID de cliente de un mensaje</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-indigo-200 dark:border-indigo-600">
+                                        <h4 class="font-bold text-indigo-800 dark:text-indigo-200">ALIAS</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Mapeo que especifica cómo extraer una propiedad de correlación de un mensaje específico.</p>
+                                        <span class="text-xs text-indigo-600 dark:text-indigo-400 italic">Ejemplo: Cómo extraer orderID de OrderMessage</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Completar Código BPEL -->
                         <div class="lg:col-span-2">
                             <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
@@ -516,6 +855,60 @@
                                 <div id="team-7-words" class="grid grid-cols-2 gap-2 text-sm"></div>
                             </div>
                             <div id="team-7-wordsearch" class="wordsearch-grid mx-auto"></div>
+                        </div>
+
+                        <!-- Ayuda: Explicación de Palabras -->
+                        <div class="rounded-xl border border-teal-200 dark:border-teal-700 bg-teal-50 dark:bg-teal-900/20 p-6 mt-6 mb-8">
+                            <h3 class="text-xl font-bold text-teal-900 dark:text-teal-100 mb-4 flex items-center">
+                                <span class="material-symbols-outlined mr-2">help</span>
+                                Guía de Términos BPEL - Arquitectura SOA
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-teal-200 dark:border-teal-600">
+                                        <h4 class="font-bold text-teal-800 dark:text-teal-200">PARTNERLINKS</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Contenedor que define todas las conexiones con servicios externos que participan en el proceso.</p>
+                                        <span class="text-xs text-teal-600 dark:text-teal-400 italic">Ejemplo: &lt;partnerLinks&gt; agrupa todas las conexiones</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-teal-200 dark:border-teal-600">
+                                        <h4 class="font-bold text-teal-800 dark:text-teal-200">PARTNERLINK</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Define una conexión específica con un servicio externo, incluyendo roles y tipos de interacción.</p>
+                                        <span class="text-xs text-teal-600 dark:text-teal-400 italic">Ejemplo: Conexión con servicio de pago</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-teal-200 dark:border-teal-600">
+                                        <h4 class="font-bold text-teal-800 dark:text-teal-200">PORTTYPE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Define un conjunto de operaciones que puede realizar un servicio web (concepto de WSDL).</p>
+                                        <span class="text-xs text-teal-600 dark:text-teal-400 italic">Ejemplo: PaymentServicePortType con operaciones charge/refund</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-teal-200 dark:border-teal-600">
+                                        <h4 class="font-bold text-teal-800 dark:text-teal-200">ROLE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Define el papel que desempeña cada participante en la interacción (cliente o proveedor).</p>
+                                        <span class="text-xs text-teal-600 dark:text-teal-400 italic">Ejemplo: myRole="client", partnerRole="server"</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-teal-200 dark:border-teal-600">
+                                        <h4 class="font-bold text-teal-800 dark:text-teal-200">SERVICE</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Implementación concreta de un portType, generalmente con una URL específica y binding.</p>
+                                        <span class="text-xs text-teal-600 dark:text-teal-400 italic">Ejemplo: PaymentService en https://pay.example.com</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-teal-200 dark:border-teal-600">
+                                        <h4 class="font-bold text-teal-800 dark:text-teal-200">ENDPOINT</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Punto de acceso específico (URL) donde está disponible un servicio web para invocación.</p>
+                                        <span class="text-xs text-teal-600 dark:text-teal-400 italic">Ejemplo: https://api.payment.com/v1/charge</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-teal-200 dark:border-teal-600">
+                                        <h4 class="font-bold text-teal-800 dark:text-teal-200">BINDING</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Especifica el protocolo y formato de mensajes para comunicarse con un servicio (SOAP, HTTP, etc.).</p>
+                                        <span class="text-xs text-teal-600 dark:text-teal-400 italic">Ejemplo: SOAP over HTTP binding</span>
+                                    </div>
+                                    <div class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-teal-200 dark:border-teal-600">
+                                        <h4 class="font-bold text-teal-800 dark:text-teal-200">OPERATION</h4>
+                                        <p class="text-gray-700 dark:text-gray-300">Operación específica que se puede ejecutar en un servicio web (método o función).</p>
+                                        <span class="text-xs text-teal-600 dark:text-teal-400 italic">Ejemplo: processOrder, authorizePayment, checkInventory</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Completar Código BPEL -->
