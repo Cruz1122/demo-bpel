@@ -11,24 +11,8 @@ let events = [];      // cronología
 let speedFactor = 1;
 
 // ---------- DOM ----------
-const el = {
-  statusPing: document.getElementById('status-ping'),
-  statusDot:  document.getElementById('status-dot'),
-  statusText: document.getElementById('status-text'),
-  darkToggle: document.getElementById('dark-toggle'),
-  btnHappy:   document.getElementById('btn-happy'),
-  btnReject:  document.getElementById('btn-reject'),
-  btnStock:   document.getElementById('btn-nostock'),
-  speed:      document.getElementById('speed'),
-  speedVal:   document.getElementById('speed-value'),
-  stepCards:  document.getElementById('step-cards'),
-  timeline:   document.getElementById('timeline'),
-  kpiRuntime: document.getElementById('kpi-runtime'),
-  kpiSteps:   document.getElementById('kpi-steps'),
-  kpiRetries: document.getElementById('kpi-retries'),
-  varsPre:    document.getElementById('variables-json'),
-  copyBtn:    document.getElementById('copy-json'),
-};
+// Los elementos se inicializan de forma segura después de que el DOM esté listo
+let el = {};
 
 // ---------- Pasos (mapeo a BPEL) ----------
 /*
@@ -52,10 +36,33 @@ const STEPS = [
 
 // ---------- Inicialización ----------
 document.addEventListener('DOMContentLoaded', () => {
-  renderSteps();
-  renderTimeline();
-  renderVars();
-  updateKPIs(0);
+  // Inicializar elementos DOM de forma segura
+  el = {
+    statusPing: document.getElementById('status-ping'),
+    statusDot:  document.getElementById('status-dot'),
+    statusText: document.getElementById('status-text'),
+    darkToggle: document.getElementById('dark-toggle'),
+    btnHappy:   document.getElementById('btn-happy'),
+    btnReject:  document.getElementById('btn-reject'),
+    btnStock:   document.getElementById('btn-nostock'),
+    speed:      document.getElementById('speed'),
+    speedVal:   document.getElementById('speed-value'),
+    stepCards:  document.getElementById('step-cards'),
+    timeline:   document.getElementById('timeline'),
+    kpiRuntime: document.getElementById('kpi-runtime'),
+    kpiSteps:   document.getElementById('kpi-steps'),
+    kpiRetries: document.getElementById('kpi-retries'),
+    varsPre:    document.getElementById('variables-json'),
+    copyBtn:    document.getElementById('copy-json'),
+  };
+
+  // Solo renderizar elementos del demo si estamos en la página principal
+  if (el.stepCards) {
+    renderSteps();
+    renderTimeline();
+    renderVars();
+    updateKPIs(0);
+  }
 
   // Modo oscuro
   if (localStorage.getItem('darkMode') === 'true' ||
@@ -63,52 +70,76 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.classList.add('dark');
   }
 
-  // Eventos
-  el.darkToggle.addEventListener('click', () => {
-    const isDark = document.documentElement.classList.toggle('dark');
-    localStorage.setItem('darkMode', isDark);
-  });
+  // Eventos - Dark toggle (presente en ambas páginas)
+  if (el.darkToggle) {
+    el.darkToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('darkMode', isDark);
+    });
+  }
 
-  el.btnHappy.addEventListener('click', () => run('happy'));
-  el.btnReject.addEventListener('click', () => run('reject'));
-  el.btnStock.addEventListener('click',  () => run('nostock'));
+  // Eventos del demo principal (solo en index.html)
+  if (el.btnHappy) {
+    el.btnHappy.addEventListener('click', () => run('happy'));
+  }
+  if (el.btnReject) {
+    el.btnReject.addEventListener('click', () => run('reject'));
+  }
+  if (el.btnStock) {
+    el.btnStock.addEventListener('click',  () => run('nostock'));
+  }
 
-  el.speed.addEventListener('input', (e) => {
-    const v = parseInt(e.target.value, 10);
-    
-    // Nueva lógica: 1..200 -> 0.1x..10x (100 => 1x)
-    if (v <= 100) {
-      // 1->0.1x, 100->1x (escala logarítmica para mejor control en velocidades lentas)
-      speedFactor = 0.1 + (v - 1) * 0.9 / 99;
-    } else {
-      // 101->1.1x, 200->10x (escala más agresiva para velocidades altas)
-      speedFactor = 1 + (v - 100) * 9 / 100;
-    }
-    
-    // Mostrar el factor de velocidad con formato amigable
-    el.speedVal.textContent = speedFactor < 1 
-      ? (speedFactor * 100).toFixed(0) + '%'
-      : speedFactor.toFixed(1) + 'x';
-  });
+  // Control de velocidad (solo en demo principal)
+  if (el.speed) {
+    el.speed.addEventListener('input', (e) => {
+      const v = parseInt(e.target.value, 10);
+      
+      // Nueva lógica: 1..200 -> 0.1x..10x (100 => 1x)
+      if (v <= 100) {
+        // 1->0.1x, 100->1x (escala logarítmica para mejor control en velocidades lentas)
+        speedFactor = 0.1 + (v - 1) * 0.9 / 99;
+      } else {
+        // 101->1.1x, 200->10x (escala más agresiva para velocidades altas)
+        speedFactor = 1 + (v - 100) * 9 / 100;
+      }
+      
+      // Mostrar el factor de velocidad con formato amigable
+      if (el.speedVal) {
+        el.speedVal.textContent = speedFactor < 1 
+          ? (speedFactor * 100).toFixed(0) + '%'
+          : speedFactor.toFixed(1) + 'x';
+      }
+    });
+  }
 
-  el.copyBtn.addEventListener('click', async () => {
-    await navigator.clipboard.writeText(
-      Object.keys(vars).length ? JSON.stringify(vars, null, 2) : '{}'
-    );
-    const prev = el.copyBtn.innerHTML;
-    el.copyBtn.innerHTML = '<span class="material-symbols-outlined text-base mr-1">check</span> ¡Copiado!';
-    setTimeout(() => (el.copyBtn.innerHTML = prev), 900);
-  });
+  // Botón de copiar JSON (solo en demo principal)
+  if (el.copyBtn) {
+    el.copyBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(
+        Object.keys(vars).length ? JSON.stringify(vars, null, 2) : '{}'
+      );
+      const prev = el.copyBtn.innerHTML;
+      el.copyBtn.innerHTML = '<span class="material-symbols-outlined text-base mr-1">check</span> ¡Copiado!';
+      setTimeout(() => (el.copyBtn.innerHTML = prev), 900);
+    });
+  }
 
-  setStatus('ready');
+  // Solo establecer estado si estamos en la página principal del demo
+  if (el.statusText) {
+    setStatus('ready');
+  }
   
-  // Inicializar actividades interactivas
-  initInteractiveActivities();
+  // Inicializar actividades interactivas solo si estamos en la página de actividades
+  if (document.getElementById('team-activities')) {
+    initInteractiveActivities();
+  }
 });
 
 // ---------- Renderizado ----------
 function renderSteps() {
-  el.stepCards.innerHTML = STEPS.map(s => stepCardTemplate(s)).join('');
+  if (el.stepCards) {
+    el.stepCards.innerHTML = STEPS.map(s => stepCardTemplate(s)).join('');
+  }
 }
 
 function stepCardTemplate(step) {
@@ -192,6 +223,8 @@ function addEvent(message, type='info', ms=0) {
 }
 
 function renderTimeline() {
+  if (!el.timeline) return;
+  
   if (!events.length) {
     el.timeline.innerHTML = `
       <li class="text-center py-8 text-gray-600 dark:text-gray-300">
@@ -234,11 +267,18 @@ function renderTimeline() {
 }
 
 function renderVars() {
-  el.varsPre.textContent = Object.keys(vars).length ? JSON.stringify(vars, null, 2)
-                                                    : '{\n  // Las variables aparecerán aquí durante la ejecución\n}';
+  if (el.varsPre) {
+    el.varsPre.textContent = Object.keys(vars).length ? JSON.stringify(vars, null, 2)
+                                                      : '{\n  // Las variables aparecerán aquí durante la ejecución\n}';
+  }
 }
 
 function setStatus(s) {
+  // Verificar que los elementos existan
+  if (!el.statusText || !el.statusDot || !el.statusPing) {
+    return;
+  }
+  
   // remove old colors
   el.statusText.classList.remove('text-status-info','text-status-ok','text-status-running','text-status-error');
   el.statusDot.classList.remove('bg-status-info','bg-status-ok','bg-status-running','bg-status-error');
@@ -471,9 +511,9 @@ function finish(ok) {
 
 // ---------- KPIs ----------
 function updateKPIs(ms) {
-  el.kpiRuntime.textContent = `${(ms/1000).toFixed(1)}s`;
-  el.kpiSteps.textContent = String(executedSteps);
-  el.kpiRetries.textContent = '0';
+  if (el.kpiRuntime) el.kpiRuntime.textContent = `${(ms/1000).toFixed(1)}s`;
+  if (el.kpiSteps) el.kpiSteps.textContent = String(executedSteps);
+  if (el.kpiRetries) el.kpiRetries.textContent = '0';
   renderVars();
 }
 
@@ -877,6 +917,11 @@ let gameStates = {
 
 // Inicializar actividades interactivas
 function initInteractiveActivities() {
+  // Verificar que los elementos existan
+  if (!document.getElementById('team-activities')) {
+    return;
+  }
+
   // Event listeners para botones de equipos
   document.querySelectorAll('.team-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -886,9 +931,12 @@ function initInteractiveActivities() {
   });
 
   // Event listener para cerrar modal
-  document.getElementById('close-modal').addEventListener('click', () => {
-    document.getElementById('completion-modal').classList.add('hidden');
-  });
+  const closeModal = document.getElementById('close-modal');
+  if (closeModal) {
+    closeModal.addEventListener('click', () => {
+      document.getElementById('completion-modal').classList.add('hidden');
+    });
+  }
 
   // Generar actividades para todos los equipos
   for (let team = 1; team <= 7; team++) {
@@ -982,10 +1030,25 @@ function generateWordsearch(teamNum) {
         cell.textContent = grid[i][j];
         cell.dataset.row = i;
         cell.dataset.col = j;
-        cell.addEventListener('click', () => handleWordsearchClick(teamNum, i, j));
+        
+        // Eventos de arrastre para selección
+        cell.addEventListener('mousedown', (e) => startWordsearchSelection(e, teamNum, i, j));
+        cell.addEventListener('mouseover', (e) => continueWordsearchSelection(e, teamNum, i, j));
+        cell.addEventListener('mouseup', () => endWordsearchSelection(teamNum));
+        
         gridElement.appendChild(cell);
       }
     }
+    
+    // Prevenir arrastre de texto
+    gridElement.addEventListener('selectstart', (e) => e.preventDefault());
+    
+    // Event listener global para finalizar selección
+    document.addEventListener('mouseup', () => {
+      if (isDragging && currentDragTeam === teamNum) {
+        endWordsearchSelection(teamNum);
+      }
+    });
     
     // Renderizar lista de palabras
     const wordsElement = document.getElementById(`team-${teamNum}-words`);
@@ -1034,20 +1097,84 @@ function placeWord(grid, word, row, col, direction) {
   }
 }
 
-// Manejar clic en sopa de letras
-function handleWordsearchClick(teamNum, row, col) {
-  const state = gameStates[teamNum];
-  const cellKey = `${row}-${col}`;
+// Variables para el arrastre
+let isDragging = false;
+let dragStartRow = -1;
+let dragStartCol = -1;
+let currentDragTeam = -1;
+
+// Iniciar selección por arrastre
+function startWordsearchSelection(event, teamNum, row, col) {
+  event.preventDefault();
+  isDragging = true;
+  dragStartRow = row;
+  dragStartCol = col;
+  currentDragTeam = teamNum;
   
-  // Si ya está seleccionada, deseleccionar
-  if (state.wordsearchSelection.includes(cellKey)) {
-    state.wordsearchSelection = state.wordsearchSelection.filter(key => key !== cellKey);
-  } else {
-    state.wordsearchSelection.push(cellKey);
-  }
+  // Limpiar selección anterior
+  gameStates[teamNum].wordsearchSelection = [];
+  gameStates[teamNum].wordsearchSelection.push(`${row}-${col}`);
   
   updateWordsearchSelection(teamNum);
+}
+
+// Continuar selección por arrastre
+function continueWordsearchSelection(event, teamNum, row, col) {
+  if (!isDragging || teamNum !== currentDragTeam) return;
+  
+  // Calcular la línea desde el punto inicial hasta el actual
+  const selection = getLineSelection(dragStartRow, dragStartCol, row, col);
+  gameStates[teamNum].wordsearchSelection = selection;
+  
+  updateWordsearchSelection(teamNum);
+}
+
+// Finalizar selección por arrastre
+function endWordsearchSelection(teamNum) {
+  if (!isDragging || teamNum !== currentDragTeam) return;
+  
+  isDragging = false;
   checkWordsearchCompletion(teamNum);
+  
+  // Reset variables
+  dragStartRow = -1;
+  dragStartCol = -1;
+  currentDragTeam = -1;
+}
+
+// Obtener selección en línea recta
+function getLineSelection(startRow, startCol, endRow, endCol) {
+  const selection = [];
+  
+  // Calcular dirección
+  const deltaRow = endRow - startRow;
+  const deltaCol = endCol - startCol;
+  
+  // Solo permitir líneas rectas (horizontal, vertical, diagonal)
+  const steps = Math.max(Math.abs(deltaRow), Math.abs(deltaCol));
+  
+  if (steps === 0) {
+    selection.push(`${startRow}-${startCol}`);
+    return selection;
+  }
+  
+  const stepRow = deltaRow === 0 ? 0 : deltaRow / Math.abs(deltaRow);
+  const stepCol = deltaCol === 0 ? 0 : deltaCol / Math.abs(deltaCol);
+  
+  // Solo permitir 8 direcciones válidas
+  if (Math.abs(deltaRow) !== 0 && Math.abs(deltaCol) !== 0 && Math.abs(deltaRow) !== Math.abs(deltaCol)) {
+    // No es una línea recta válida, solo seleccionar celda inicial
+    selection.push(`${startRow}-${startCol}`);
+    return selection;
+  }
+  
+  for (let i = 0; i <= steps; i++) {
+    const row = startRow + (stepRow * i);
+    const col = startCol + (stepCol * i);
+    selection.push(`${row}-${col}`);
+  }
+  
+  return selection;
 }
 
 // Actualizar selección visual
